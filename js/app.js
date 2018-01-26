@@ -1,6 +1,7 @@
 // TODO: En stopper, slik at man ikke kan velge mer enn to kort
 // TODO: Clicks should only be recorded when users clicks a card
 // TODO: Object-oriented functional
+// TODO: The moves are recorded at first click. It should be recorded after both clicks!
 
 
 /*
@@ -36,6 +37,74 @@ function shuffle(array) {
 
 let moves = 0;
 
+
+
+var section = {
+  starElement: document.querySelector('.stars'),
+  liElement: document.querySelector('.stars').querySelector('li'),
+
+  /**
+   * removeStars simply removes all child elements of <section><ul>
+   * element. Ingame this function will remove all stars.
+   */
+  removeStars: function() {
+    for (var i = 0; i < 10; i++) {
+      if (section.starElement.querySelector('li')) {
+        section.starElement.querySelector('li').remove();
+      }
+    }
+  },
+
+  /**
+   * appendStars is a function that inputs the number
+   * of stars the user wants to be added to <section> as
+   * <li><i> elements that is childs of <ul>
+   */
+  appendStars: function(x) {
+    for (var i = 0; i < x; i++) {
+      console.log("loop number " + i)
+      const newLi = document.createElement('li');
+      section.starElement.appendChild(newLi);
+      const newI = document.createElement('i');
+      newI.classList.add('fa', 'fa-star');
+      newLi.appendChild(newI);
+      }
+  },
+
+  updateStars: function() {
+    console.log("updating stars" + section.starElement);
+
+    section.removeStars();
+    console.log("moves = " + moves);
+    if (moves < 10) {
+
+      console.log("doing this shit")
+      section.appendStars(3);
+    } else if (moves < 15) {
+      section.appendStars(2);
+    } else if (moves < 20) {
+      section.appendStars(1);
+    } else {
+      section.appendStars(0);
+    }
+   }
+};
+
+
+/*
+for (var i = 0; i < 16; i++) {
+  // Creating a brand new <li> element
+  const newLi = document.createElement('li');
+
+  // Adding the class "card" to the newly added <li> element
+  newLi.classList.add("card");
+
+  //storing the .deck parent
+  const deckUl = document.querySelector('.deck');
+
+  // and appending the added <li> element to deck parent
+  deckUl.appendChild(newLi);
+} */
 
 
 /* logging the shuffle function for testing purposes */
@@ -83,7 +152,7 @@ hiddenCards.addEventListener('click', function(event) {
     func(event.target);
     simulate();
     updateMoves();
-    updateStars();
+    section.updateStars();
     }
   else {
     // do nothing
@@ -412,7 +481,7 @@ function modal() {
         func(event.target);
         simulate();
         updateMoves();
-        updateStars();
+        section.updateStars();
         }
       else {
         // do nothing
@@ -426,36 +495,9 @@ function lessStar () {
   const starElement = document.querySelector('stars');
 }
 
-function removeStars () {
-  const starElement = document.querySelector('.stars');
-  console.log("should now be removing stars");
-  starElement.removeChild('li');
-  starElement.removeChild('li');
-  starElement.removeChild('li');
-}
-
-function updateStars () {
-  const starElement = document.querySelector('.stars');
-  console.log("updating stars");
-  removeStars();
-  if (moves < 10) {
 
 
-    const newLi = document.createElement('li');
-    const newI = document.createElement('i');
 
-    starElement.appendChild(newLi);
-    starElement.querySelector('li').appendChild(newI)
-    starElement.querySelector('i').className = "fa fa-star"
-  } else if (moves < 15) {
-
-  } else if (moves < 20) {
-
-  } else {
-
-  }
-
-}
 
 function resetCount() {
   const container = document.querySelector('.container');
