@@ -18,6 +18,7 @@ var section = {
   starElement: document.querySelector('.stars'),
   liElement: document.querySelector('.stars').querySelector('li'),
   movesElement: document.querySelector('.moves'),
+  restartElement: document.querySelector('.restart');
 
   moves: 0,
 
@@ -183,9 +184,9 @@ function func(element) {
 
 // eventlistener to restart board
 
-const restart = document.querySelector('.restart');
 
-restart.addEventListener('click', function(event) {
+
+section.restartElement.addEventListener('click', function(event) {
   resetBoard();
   resetCount();
   section.resetMoves();
