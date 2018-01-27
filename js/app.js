@@ -15,6 +15,7 @@ const deckList = ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plan
 
 
 var section = {
+  sectionElement: document.querySelector('.score-panel'),
   starElement: document.querySelector('.stars'),
   liElement: document.querySelector('.stars').querySelector('li'),
   movesElement: document.querySelector('.moves'),
@@ -57,13 +58,16 @@ var section = {
     console.log("moves = " + section.moves);
     if (section.moves < 10) {
 
-      console.log("doing this shit")
+      console.log("going for 3")
       section.appendStars(3);
     } else if (section.moves < 15) {
+      console.log("going for 2")
       section.appendStars(2);
     } else if (section.moves < 20) {
+      console.log("going for 1")
       section.appendStars(1);
     } else {
+      console.log("going for 0")
       section.appendStars(0);
     }
   },
@@ -83,10 +87,13 @@ var section = {
      }
    },
 
-   updateMoves: function () {
-     // Passes in how many moves the player has made into
-     // the span with class="moves".
-     section.movesElement.textContent = section.moves;
+   createSpan: function() {
+     const newSpan = document.createElement('span');
+     section.sectionElement.appendChild(newSpan);
+     newSpan.classList.add('moves');
+
+     // update the element
+     section.movesElement = document.querySelector('.moves');
    },
 
   resetMoves: function() {
@@ -97,8 +104,10 @@ var section = {
     // updates the text inside the span with class="moves"
     // to be equal to the number of moves the player has
     // made in the game
+    console.log("trying to..")
      if (section.movesElement) {
-       section.movesElement.innerHTML = section.moves;
+       console.log("update moves...")
+       section.movesElement.innerHTML = section.moves + " Moves";
      }
    },
 };
@@ -336,30 +345,6 @@ function simulate() {
 }, 1500);
 }
 
-
-
-
-// functions to reset the game
-
-
-
-
-
-
-function resetTimer () {
-  // TODO
-}
-
-function removeElements() {
-  const container = document.querySelector('.container');
-
-  while (container.querySelector('section')) {
-    container.querySelector('section').remove()
-  }
-  while (container.querySelector('ul')) {
-    container.querySelector('ul').remove()
-  }
-}
 // functions for winning the game
 
 function modal() {
@@ -429,13 +414,7 @@ function modal() {
     section.resetMoves();
     section.updateMoves();
 
-
-
-
-
-
     deck.ulElement.addEventListener('click', function(event) {
-
       // only unhide cards if less than two is selected
       if (deck.countSelected() <= 1) {
         func(event.target);
@@ -496,4 +475,16 @@ function addBackSection () {
 
   container.querySelector('section').querySelector('ul').className = "stars";
 
+  section.resetMoves();
+
+  // have to reset the starElement variable, otherwise function wont work
+  section.starElement = document.querySelector('.stars');
+  section.sectionElement = document.querySelector('.score-panel');
+
+
+  section.updateStars()
+  section.createSpan()
+
+
+  section.updateMoves()
 }
