@@ -138,6 +138,23 @@ var deck = {
     }
   },
 
+  countSelected: function() {
+    let count = 0;
+    const arrayLength = deck.allCards.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+      // open cards have a class length of 3
+      if (deck.allCards[i].classList.length == 3) {
+        // push open card to list TODO: make this a simple count instead
+            count += 1;
+          }
+      else {
+        count = count;
+      }
+      }
+
+      return count;
+  },
   /*
    * Display the cards on the page
    *   - shuffle the list of cards using the provided "shuffle" method below
@@ -173,7 +190,7 @@ deck.ulElement.addEventListener('click', function(event) {
   // only unhide cards if less than two is selected
 
   console.log(deck.allCards);
-  if (countSelected(deck.allCards) <= 1) {
+  if (deck.countSelected() <= 1) {
     func(event.target);
     simulate();
     section.updateMoves();
@@ -199,23 +216,10 @@ section.restartElement.addEventListener('click', function(event) {
   section.updateMoves();
 });
 
-// function that updates how many selected cards user has
-// input: all the list elements of deck
-// returns how many cards are selected by user
-function numberOfCards() {
-  const cardSelected = [];
-  const arrayLength = deck.allCards.length;
 
-  for (var i = 0; i < arrayLength; i++) {
-    // open cards have a class length of 3
-    if (deck.allCards[i].classList.length == 3) {
-      // push open card to list TODO: make this a simple count instead
-          cardSelected.push(deck.allCards[i])
-        }
-    }
 
-  return cardSelected.length;
-}
+
+
 
 // function that checks if selected cards are identical
 // input: all the list elements of deck
@@ -278,27 +282,11 @@ function getSelected() {
   }
 }
 
-function countSelected() {
-  let count = 0;
-  const arrayLength = deck.allCards.length;
 
-  for (var i = 0; i < arrayLength; i++) {
-    // open cards have a class length of 3
-    if (deck.allCards[i].classList.length == 3) {
-      // push open card to list TODO: make this a simple count instead
-          count += 1;
-        }
-    else {
-      count = count;
-    }
-    }
-
-    return count;
-}
 
 isIdentical(deck.allCards);
 getSelected(deck.allCards);
-countSelected(deck.allCards);
+deck.countSelected();
 
 
 // function that makes the cards class="card match" IF they are identical
@@ -455,7 +443,7 @@ function modal() {
     deck.ulElement.addEventListener('click', function(event) {
 
       // only unhide cards if less than two is selected
-      if (countSelected(deck.allCards) <= 1) {
+      if (deck.countSelected() <= 1) {
         func(event.target);
         simulate();
         section.updateMoves();
