@@ -18,7 +18,7 @@ var section = {
   starElement: document.querySelector('.stars'),
   liElement: document.querySelector('.stars').querySelector('li'),
   movesElement: document.querySelector('.moves'),
-  restartElement: document.querySelector('.restart');
+  restartElement: document.querySelector('.restart'),
 
   moves: 0,
 
@@ -190,7 +190,6 @@ section.restartElement.addEventListener('click', function(event) {
   resetBoard();
   resetCount();
   section.resetMoves();
-
 });
 
 
