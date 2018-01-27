@@ -138,6 +138,7 @@ var deck = {
     }
   },
 
+  // Counts how many cards the player has selected / open
   countSelected: function() {
     let count = 0;
     const arrayLength = deck.allCards.length;
@@ -154,6 +155,37 @@ var deck = {
       }
 
       return count;
+  },
+
+
+  // function that checks if the players selected cards are identical
+  // output: true if identical, false if not
+  isIdentical: function() {
+    const cardSelected = [];
+    const arrayLength = deck.allCards.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+      // open cards have a class length of 3
+      if (deck.allCards[i].classList.length == 3) {
+        // push open card to list TODO: make this a simple count instead
+            cardSelected.push(deck.allCards[i])
+          }
+      }
+
+      // if two cards are selected by user
+      if (cardSelected[1] != undefined) {
+        const cardA = cardSelected[0].querySelector('i');
+        const cardB = cardSelected[1].querySelector('i');
+        if (cardA.classList.toString() == cardB.classList.toString()) {
+          return true;
+        }
+        else {
+          return false;
+        }
+    }
+    else {
+      console.log("select more cards")
+    }
   },
   /*
    * Display the cards on the page
@@ -221,36 +253,7 @@ section.restartElement.addEventListener('click', function(event) {
 
 
 
-// function that checks if selected cards are identical
-// input: all the list elements of deck
-// output: true if identical, false if not
-function isIdentical() {
-  const cardSelected = [];
-  const arrayLength = deck.allCards.length;
 
-  for (var i = 0; i < arrayLength; i++) {
-    // open cards have a class length of 3
-    if (deck.allCards[i].classList.length == 3) {
-      // push open card to list TODO: make this a simple count instead
-          cardSelected.push(deck.allCards[i])
-        }
-    }
-
-    // if two cards are selected by user
-    if (cardSelected[1] != undefined) {
-      const cardA = cardSelected[0].querySelector('i');
-      const cardB = cardSelected[1].querySelector('i');
-      if (cardA.classList.toString() == cardB.classList.toString()) {
-        return true;
-      }
-      else {
-        return false;
-      }
-  }
-  else {
-    console.log("select more cards")
-  }
-}
 
 
 // function that gets selected cards
@@ -284,7 +287,7 @@ function getSelected() {
 
 
 
-isIdentical(deck.allCards);
+deck.isIdentical();
 getSelected(deck.allCards);
 deck.countSelected();
 
@@ -301,7 +304,7 @@ deck.countSelected();
 function simulate() {
 
   setTimeout(function(){
-    if (isIdentical(deck.allCards)) {
+    if (deck.isIdentical()) {
       a = getSelected(deck.allCards)[0].parentNode
       b = getSelected(deck.allCards)[1].parentNode
 
