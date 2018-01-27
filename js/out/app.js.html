@@ -1,4 +1,32 @@
-// TODO: En stopper, slik at man ikke kan velge mer enn to kort
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: app.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: app.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// TODO: En stopper, slik at man ikke kan velge mer enn to kort
 // TODO: Clicks should only be recorded when users clicks a card
 // TODO: Object-oriented functional
 // TODO: The moves are recorded at first click. It should be recorded after both clicks!
@@ -25,7 +53,7 @@ const section = {
    * the ul element with classname of stars.
    */
   removeStars: function() {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i &lt; 4; i++) {
       if (section.starElement.querySelector('li')) {
         section.starElement.querySelector('li').remove();
       }
@@ -37,7 +65,7 @@ const section = {
    * @param {string} x - Number of stars to be added to -ul-
    */
   appendStars: function(x) {
-    for (var i = 0; i < x; i++) {
+    for (var i = 0; i &lt; x; i++) {
       const newLi = document.createElement('li');
       section.starElement.appendChild(newLi);
       const newI = document.createElement('i');
@@ -52,11 +80,11 @@ const section = {
    */
   updateStars: function() {
     section.removeStars();
-    if (section.moves < 10) {
+    if (section.moves &lt; 10) {
       section.appendStars(3);
-    } else if (section.moves < 15) {
+    } else if (section.moves &lt; 15) {
       section.appendStars(2);
-    } else if (section.moves < 20) {
+    } else if (section.moves &lt; 20) {
       section.appendStars(1);
     } else {
       section.appendStars(0);
@@ -69,11 +97,11 @@ const section = {
    * @returns {number} Either 3, 2, 1 or 0 stars
    */
    getStars: function() {
-     if (section.moves < 10) {
+     if (section.moves &lt; 10) {
        return 3;
-     } else if (section.moves < 15) {
+     } else if (section.moves &lt; 15) {
        return 2;
-     } else if (section.moves < 20) {
+     } else if (section.moves &lt; 20) {
        return 1;
      } else {
        return 0;
@@ -128,11 +156,12 @@ const section = {
 };
 
 
-const deck = {
+var deck = {
   deckList: ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o",
     "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
     "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
   ],
+
   ulElement: document.querySelector('.deck'),
   allCards: document.getElementsByClassName("card"),
   matchedCards: document.getElementsByClassName("card match"),
@@ -144,17 +173,17 @@ const deck = {
     const newDeck = deck.shuffle(deck.deckList);
 
     // Laying out the list items from the shuffled deck
-    for (var i = 0; i < 16; i++) {
-      // Creating a brand new <li> element
+    for (var i = 0; i &lt; 16; i++) {
+      // Creating a brand new &lt;li> element
       const newLi = document.createElement('li');
 
-      // Adding the class "card" to the newly added <li> element
+      // Adding the class "card" to the newly added &lt;li> element
       newLi.classList.add("card");
 
       //storing the .deck parent
       const deckUl = document.querySelector('.deck');
 
-      // and appending the added <li> element to deck parent
+      // and appending the added &lt;li> element to deck parent
       deckUl.appendChild(newLi);
 
 
@@ -169,7 +198,7 @@ const deck = {
     let count = 0;
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (var i = 0; i &lt; arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
         // push open card to list TODO: make this a simple count instead
@@ -188,7 +217,7 @@ const deck = {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (var i = 0; i &lt; arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
         // push open card to list TODO: make this a simple count instead
@@ -219,7 +248,7 @@ const deck = {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (var i = 0; i &lt; arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
         // push open card to list TODO: make this a simple count instead
@@ -309,7 +338,7 @@ deck.ulElement.addEventListener('click', function(event) {
   }
 
   console.log(deck.allCards);
-  if (deck.countSelected() <= 1) {
+  if (deck.countSelected() &lt;= 1) {
     func(event.target);
     simulate();
     section.updateMoves();
@@ -390,7 +419,7 @@ function modal() {
     container.querySelector('ul').remove()
   }
 
-  // create a new div and <p> elements
+  // create a new div and &lt;p> elements
   const newDiv = document.createElement('div');
   const newButton = document.createElement('button');
 
@@ -417,9 +446,9 @@ function modal() {
   const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars! and used time: " + timeConversion((deck.endTime-deck.startTime))];
   const arrayLength = info.length;
   console.log(arrayLength);
-  for (var i = 0; i < arrayLength; i++) {
+  for (var i = 0; i &lt; arrayLength; i++) {
     console.log("wokring good")
-    // Creating a brand new <li> element
+    // Creating a brand new &lt;li> element
     const newP = document.createElement('p');
     newP.classList.add("p-"+i);
     const divElement = document.querySelector('.deck');
@@ -448,7 +477,7 @@ function modal() {
 
     deck.ulElement.addEventListener('click', function(event) {
       // only unhide cards if less than two is selected
-      if (deck.countSelected() <= 1) {
+      if (deck.countSelected() &lt;= 1) {
         func(event.target);
         simulate();
         section.updateMoves();
@@ -486,14 +515,14 @@ function resetElements() {
   while (container.querySelector('.deck.modal')) {
     container.querySelector('.deck.modal').remove();
   }
-  // create a brand new <span> element
+  // create a brand new &lt;span> element
   addBackSection();
   const newUl = document.createElement('ul');
   newUl.className = "deck";
 
   // select the first (main) heading of the pag
 
-  // add the the <span> element as the last child element of the main heading
+  // add the the &lt;span> element as the last child element of the main heading
   container.appendChild(newUl);
 }
 
@@ -537,13 +566,36 @@ function timeConversion(millisec) {
 
         var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
-        if (seconds < 60) {
+        if (seconds &lt; 60) {
             return seconds + " Sec";
-        } else if (minutes < 60) {
+        } else if (minutes &lt; 60) {
             return minutes + " Min";
-        } else if (hours < 24) {
+        } else if (hours &lt; 24) {
             return hours + " Hrs";
         } else {
             return days + " Days"
         }
     }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="section.html">section</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jan 27 2018 18:03:09 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
