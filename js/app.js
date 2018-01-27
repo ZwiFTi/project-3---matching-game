@@ -34,14 +34,12 @@ function shuffle(array) {
     return array;
 }
 
-
-let moves = 0;
-
-
-
 var section = {
   starElement: document.querySelector('.stars'),
   liElement: document.querySelector('.stars').querySelector('li'),
+  movesElement: document.querySelector('.moves'),
+
+  moves: 0,
 
   /**
    * removeStars simply removes all child elements of <section><ul>
@@ -75,14 +73,14 @@ var section = {
     console.log("updating stars" + section.starElement);
 
     section.removeStars();
-    console.log("moves = " + moves);
-    if (moves < 10) {
+    console.log("moves = " + section.moves);
+    if (section.moves < 10) {
 
       console.log("doing this shit")
       section.appendStars(3);
-    } else if (moves < 15) {
+    } else if (section.moves < 15) {
       section.appendStars(2);
-    } else if (moves < 20) {
+    } else if (section.moves < 20) {
       section.appendStars(1);
     } else {
       section.appendStars(0);
@@ -93,16 +91,40 @@ var section = {
    * Returns the number of stars user currently has
    */
    getStars: function() {
-     if (moves < 10) {
+     if (section.moves < 10) {
        return 3;
-     } else if (moves < 15) {
+     } else if (section.moves < 15) {
        return 2;
-     } else if (moves < 20) {
+     } else if (section.moves < 20) {
        return 1;
      } else {
        return 0;
      }
-   }
+   },
+
+   updateMoves: function () {
+     // Passes in how many moves the player has made into
+     // the span with class="moves".
+     section.movesElement.textContent = section.moves;
+   },
+};
+
+
+var deck = {
+  starElement: document.querySelector('.stars'),
+  liElement: document.querySelector('.stars').querySelector('li'),
+
+  /**
+   * removeStars simply removes all child elements of <section><ul>
+   * element. Ingame this function will remove all stars.
+   */
+  removeStars: function() {
+    for (var i = 0; i < 10; i++) {
+      if (section.starElement.querySelector('li')) {
+        section.starElement.querySelector('li').remove();
+      }
+    }
+  }
 };
 
 
@@ -150,7 +172,7 @@ hiddenCards.addEventListener('click', function(event) {
   if (countSelected(allCards) <= 1) {
     func(event.target);
     simulate();
-    updateMoves();
+    section.updateMoves();
     section.updateStars();
     }
   else {
@@ -338,7 +360,7 @@ function simulate() {
       b.classList.add("match");
 
       // check if game is won
-      moves += 1
+      section.moves += 1
       isGameWon();
 
     }
@@ -347,10 +369,10 @@ function simulate() {
       b = getSelected(allCards)[1].parentNode
       a.className = "card";
       b.className = "card";
-      moves += 1
+      section.moves += 1
     }
 }, 1500);
-  console.log(moves)
+  console.log(section.moves)
 }
 
 
@@ -364,12 +386,6 @@ function isGameWon() {
     console.log("keep on playing");
   }
 }
-
-function updateMoves() {
-  const movesElement = document.querySelector('.moves');
-  movesElement.textContent = moves;
-}
-
 
 // functions to reset the game
 
@@ -457,7 +473,7 @@ function modal() {
     mainDiv.querySelector('.p-'+i).innerHTML = info[i];
   };
 
-  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', " " + moves + " moves");
+  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', " " + section.moves + " moves");
 
   //TODO: Listen to button press, then reset game
 
@@ -480,7 +496,7 @@ function modal() {
       if (countSelected(allCards) <= 1) {
         func(event.target);
         simulate();
-        updateMoves();
+        section.updateMoves();
         section.updateStars();
         }
       else {
@@ -501,7 +517,7 @@ function lessStar () {
 
 function resetCount() {
   const container = document.querySelector('.container');
-  moves = 0;
+  section.moves = 0;
   if (container.querySelector(".moves")) {
     container.querySelector(".moves").innerHTML = "0";
   }
