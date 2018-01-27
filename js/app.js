@@ -132,6 +132,8 @@ var deck = {
   ulElement: document.querySelector('.deck'),
   allCards: document.getElementsByClassName("card"),
   matchedCards: document.getElementsByClassName("card match"),
+  startTime: 0,
+  endTime: 0,
 
 
   newBoard: function() {
@@ -270,11 +272,18 @@ var deck = {
   // Checks if all cards are matched. Returns true if win, false if not
   isGameWon: function() {
     if (deck.matchedCards.length == 16) {
+      deck.endTime = performance.now();
+      console.log(deck.endTime);
       return true;
     }
     else {
       return false;
     }
+  },
+
+  resetTime: function() {
+    deck.startTime = 0;
+    deck.endTime = 0;
   }
 
 
@@ -290,6 +299,10 @@ deck.newBoard();
 // flip the card on click
 deck.ulElement.addEventListener('click', function(event) {
   // only unhide cards if less than two is selected
+  if (section.moves == 0) {
+    deck.startTime = performance.now();
+    console.log(deck.startTime)
+  }
 
   console.log(deck.allCards);
   if (deck.countSelected() <= 1) {
@@ -397,7 +410,7 @@ function modal() {
   mainDiv.querySelector('button').innerHTML = "PLAY AGAIN";
 
 
-  const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars!"];
+  const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars! and used time: " + timeConversion((deck.endTime-deck.startTime))];
   const arrayLength = info.length;
   console.log(arrayLength);
   for (var i = 0; i < arrayLength; i++) {
@@ -423,6 +436,11 @@ function modal() {
     deck.erase();
     section.resetMoves();
     section.updateMoves();
+    deck.resetTime();
+
+
+    //reset ULelement
+    deck.ulElement = document.querySelector('.deck');
 
     deck.ulElement.addEventListener('click', function(event) {
       // only unhide cards if less than two is selected
@@ -431,6 +449,9 @@ function modal() {
         simulate();
         section.updateMoves();
         section.updateStars();
+        if (section.moves == 0) {
+          deck.startTime = performance.now();
+          }
         }
       else {
         // do nothing
@@ -499,3 +520,26 @@ function addBackSection () {
 
   section.updateMoves()
 }
+
+
+/* from: https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript */
+function timeConversion(millisec) {
+
+        var seconds = (millisec / 1000).toFixed(1);
+
+        var minutes = (millisec / (1000 * 60)).toFixed(1);
+
+        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+
+        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+        if (seconds < 60) {
+            return seconds + " Sec";
+        } else if (minutes < 60) {
+            return minutes + " Min";
+        } else if (hours < 24) {
+            return hours + " Hrs";
+        } else {
+            return days + " Days"
+        }
+    }
