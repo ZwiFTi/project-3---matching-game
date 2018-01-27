@@ -94,6 +94,9 @@ var section = {
    },
 
   updateMoves: function() {
+    // updates the text inside the span with class="moves"
+    // to be equal to the number of moves the player has
+    // made in the game
      if (section.movesElement) {
        section.movesElement.innerHTML = section.moves;
      }
@@ -106,6 +109,9 @@ var deck = {
     "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
     "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
   ],
+
+  ulElement: document.querySelector('.deck'),
+  allCards: document.getElementsByClassName("card"),
 
 
   newBoard: function() {
@@ -163,11 +169,11 @@ deck.newBoard();
 
 // listen to user clicking a hidden card
 // flip the card on click
-const hiddenCards = document.querySelector('.deck');
-hiddenCards.addEventListener('click', function(event) {
-
+deck.ulElement.addEventListener('click', function(event) {
   // only unhide cards if less than two is selected
-  if (countSelected(allCards) <= 1) {
+
+  console.log(deck.allCards);
+  if (countSelected(deck.allCards) <= 1) {
     func(event.target);
     simulate();
     section.updateMoves();
@@ -176,9 +182,7 @@ hiddenCards.addEventListener('click', function(event) {
   else {
     // do nothing
   }
-
 });
-
 
 function func(element) {
   element.classList.add('open');
@@ -189,63 +193,24 @@ function func(element) {
 
 
 // eventlistener to restart board
-
-
-
 section.restartElement.addEventListener('click', function(event) {
   resetBoard();
   section.resetMoves();
   section.updateMoves();
 });
 
-
-
-
-
-
-
-
-// matching logic //
-
-const allCards = document.getElementsByClassName("card");
-
-
-
-
-
-
-function matchingLogic(numberOfCards) {
-  if (numberOfCards == 0) {
-    console.log("please select more cards");
-  }
-  else if  (numberOfCards == 1) {
-    console.log("please select more cards");
-  }
-  else {
-    console.log("Does it match?");
-    // Check if cards match
-    // if match -> make them class "card match"
-    // if not -> hide them again after a few seconds
-  }
-}
-
-
-
-
-
-
 // function that updates how many selected cards user has
 // input: all the list elements of deck
 // returns how many cards are selected by user
-function numberOfCards(allCards) {
+function numberOfCards() {
   const cardSelected = [];
-  const arrayLength = allCards.length;
+  const arrayLength = deck.allCards.length;
 
   for (var i = 0; i < arrayLength; i++) {
     // open cards have a class length of 3
-    if (allCards[i].classList.length == 3) {
+    if (deck.allCards[i].classList.length == 3) {
       // push open card to list TODO: make this a simple count instead
-          cardSelected.push(allCards[i])
+          cardSelected.push(deck.allCards[i])
         }
     }
 
@@ -255,15 +220,15 @@ function numberOfCards(allCards) {
 // function that checks if selected cards are identical
 // input: all the list elements of deck
 // output: true if identical, false if not
-function isIdentical(allCards) {
+function isIdentical() {
   const cardSelected = [];
-  const arrayLength = allCards.length;
+  const arrayLength = deck.allCards.length;
 
   for (var i = 0; i < arrayLength; i++) {
     // open cards have a class length of 3
-    if (allCards[i].classList.length == 3) {
+    if (deck.allCards[i].classList.length == 3) {
       // push open card to list TODO: make this a simple count instead
-          cardSelected.push(allCards[i])
+          cardSelected.push(deck.allCards[i])
         }
     }
 
@@ -285,15 +250,15 @@ function isIdentical(allCards) {
 
 
 // function that gets selected cards
-function getSelected(allCards) {
+function getSelected() {
   const cardSelected = [];
-  const arrayLength = allCards.length;
+  const arrayLength = deck.allCards.length;
 
   for (var i = 0; i < arrayLength; i++) {
     // open cards have a class length of 3
-    if (allCards[i].classList.length == 3) {
+    if (deck.allCards[i].classList.length == 3) {
       // push open card to list TODO: make this a simple count instead
-          cardSelected.push(allCards[i])
+          cardSelected.push(deck.allCards[i])
         }
     }
 
@@ -313,13 +278,13 @@ function getSelected(allCards) {
   }
 }
 
-function countSelected(allCards) {
+function countSelected() {
   let count = 0;
-  const arrayLength = allCards.length;
+  const arrayLength = deck.allCards.length;
 
   for (var i = 0; i < arrayLength; i++) {
     // open cards have a class length of 3
-    if (allCards[i].classList.length == 3) {
+    if (deck.allCards[i].classList.length == 3) {
       // push open card to list TODO: make this a simple count instead
           count += 1;
         }
@@ -331,9 +296,9 @@ function countSelected(allCards) {
     return count;
 }
 
-isIdentical(allCards);
-getSelected(allCards);
-countSelected(allCards);
+isIdentical(deck.allCards);
+getSelected(deck.allCards);
+countSelected(deck.allCards);
 
 
 // function that makes the cards class="card match" IF they are identical
@@ -348,9 +313,9 @@ countSelected(allCards);
 function simulate() {
 
   setTimeout(function(){
-    if (isIdentical(allCards)) {
-      a = getSelected(allCards)[0].parentNode
-      b = getSelected(allCards)[1].parentNode
+    if (isIdentical(deck.allCards)) {
+      a = getSelected(deck.allCards)[0].parentNode
+      b = getSelected(deck.allCards)[1].parentNode
 
       a.classList.add("card");
       a.classList.add("match");
@@ -363,8 +328,8 @@ function simulate() {
 
     }
     else {
-      a = getSelected(allCards)[0].parentNode
-      b = getSelected(allCards)[1].parentNode
+      a = getSelected(deck.allCards)[0].parentNode
+      b = getSelected(deck.allCards)[1].parentNode
       a.className = "card";
       b.className = "card";
       section.moves += 1
@@ -486,11 +451,11 @@ function modal() {
 
 
 
-    const hiddenCards = document.querySelector('.deck');
-    hiddenCards.addEventListener('click', function(event) {
+
+    deck.ulElement.addEventListener('click', function(event) {
 
       // only unhide cards if less than two is selected
-      if (countSelected(allCards) <= 1) {
+      if (countSelected(deck.allCards) <= 1) {
         func(event.target);
         simulate();
         section.updateMoves();
@@ -549,71 +514,4 @@ function addBackSection () {
 
   container.querySelector('section').querySelector('ul').className = "stars";
 
-
-  /*
-
-  <section class="score-panel">
-    <ul class="stars">
-      <li><i class="fa fa-star"></i></li>
-      <li><i class="fa fa-star"></i></li>
-      <li><i class="fa fa-star"></i></li>
-    </ul>
-
-    <span class="moves">0</span> Moves
-
-    <div class="restart">
-      <i class="fa fa-repeat"></i>
-    </div>
-  */
 }
-
-/*
-
-    <div class="deck">
-      <p>You finished the board in time : xxx </p>
-      <p>You managed to get x stars </p>
-      <p>Great job!</p>
-    </div>
-</div>
-
-*/
-
-
-
-
-
-/*
-if (document.getElementsByClassName("card").classList == ["card", "open", "show"]) {
-  // run this code
-} else {
-  // run this code
-} */
-
-// BACKCARD //
-//<li class="card">
-//    <i class="fa fa-diamond"></i>
-//</li>
-
-
-//<li class="card match">
-//    <i class="fa fa-anchor"></i>
-//</li>
-
-
-
-// <li class="card open show">
-//     <i class="fa fa-bolt"></i>
-// </li>
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
