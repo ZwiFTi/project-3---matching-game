@@ -87,24 +87,23 @@ var section = {
     } else {
       section.appendStars(0);
     }
+  },
+
+  /**
+   * Returns the number of stars user currently has
+   */
+   getStars: function() {
+     if (moves < 10) {
+       return 3;
+     } else if (moves < 15) {
+       return 2;
+     } else if (moves < 20) {
+       return 1;
+     } else {
+       return 0;
+     }
    }
 };
-
-
-/*
-for (var i = 0; i < 16; i++) {
-  // Creating a brand new <li> element
-  const newLi = document.createElement('li');
-
-  // Adding the class "card" to the newly added <li> element
-  newLi.classList.add("card");
-
-  //storing the .deck parent
-  const deckUl = document.querySelector('.deck');
-
-  // and appending the added <li> element to deck parent
-  deckUl.appendChild(newLi);
-} */
 
 
 /* logging the shuffle function for testing purposes */
@@ -405,6 +404,7 @@ function removeElements() {
 // functions for winning the game
 
 function modal() {
+  // Inputs how many stars the user has
   const container = document.querySelector('.container');
 
   // change header
@@ -443,7 +443,7 @@ function modal() {
   mainDiv.querySelector('button').innerHTML = "PLAY AGAIN";
 
 
-  const info = ["Congratulations!", "Do you want to play again?", "You finished in"];
+  const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars!"];
   const arrayLength = info.length;
   console.log(arrayLength);
   for (var i = 0; i < arrayLength; i++) {
