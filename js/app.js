@@ -12,27 +12,7 @@ const deckList = ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plan
   "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
 ];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
 
 var section = {
   starElement: document.querySelector('.stars'),
@@ -107,59 +87,70 @@ var section = {
      // the span with class="moves".
      section.movesElement.textContent = section.moves;
    },
+
+  resetMoves: function() {
+     section.moves = 0;
+   }
 };
 
 
 var deck = {
-  starElement: document.querySelector('.stars'),
-  liElement: document.querySelector('.stars').querySelector('li'),
+  deckList: ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o",
+    "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
+    "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
+  ],
 
-  /**
-   * removeStars simply removes all child elements of <section><ul>
-   * element. Ingame this function will remove all stars.
-   */
-  removeStars: function() {
-    for (var i = 0; i < 10; i++) {
-      if (section.starElement.querySelector('li')) {
-        section.starElement.querySelector('li').remove();
-      }
+
+  newBoard: function() {
+    const newDeck = deck.shuffle(deck.deckList);
+
+    // Laying out the list items from the shuffled deck
+    for (var i = 0; i < 16; i++) {
+      // Creating a brand new <li> element
+      const newLi = document.createElement('li');
+
+      // Adding the class "card" to the newly added <li> element
+      newLi.classList.add("card");
+
+      //storing the .deck parent
+      const deckUl = document.querySelector('.deck');
+
+      // and appending the added <li> element to deck parent
+      deckUl.appendChild(newLi);
+
+
+      const newI = document.createElement('i');
+      newI.classList.add('fa', newDeck[i]);
+      newLi.appendChild(newI);
     }
+  },
+
+  /*
+   * Display the cards on the page
+   *   - shuffle the list of cards using the provided "shuffle" method below
+   *   - loop through each card and create its HTML
+   *   - add each card's HTML to the page
+   */
+
+  // Shuffle function from http://stackoverflow.com/a/2450976
+  shuffle: function(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      while (currentIndex !== 0) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+      }
+
+      return array;
   }
 };
 
 
-/* logging the shuffle function for testing purposes */
-console.log(shuffle(deckList));
 
-
-/* loop through each card and create its HTML */
-
-// Shuffles deck
-function newBoard() {
-  const newDeck = shuffle(deckList);
-
-  // Laying out the list items from the shuffled deck
-  for (var i = 0; i < 16; i++) {
-    // Creating a brand new <li> element
-    const newLi = document.createElement('li');
-
-    // Adding the class "card" to the newly added <li> element
-    newLi.classList.add("card");
-
-    //storing the .deck parent
-    const deckUl = document.querySelector('.deck');
-
-    // and appending the added <li> element to deck parent
-    deckUl.appendChild(newLi);
-
-
-    const newI = document.createElement('i');
-    newI.classList.add('fa', newDeck[i]);
-    newLi.appendChild(newI);
-  }
-}
-
-newBoard();
+deck.newBoard();
 
 
 
@@ -197,6 +188,7 @@ const restart = document.querySelector('.restart');
 restart.addEventListener('click', function(event) {
   resetBoard();
   resetCount();
+  section.resetMoves();
 
 });
 
@@ -396,12 +388,10 @@ function resetBoard () {
   while (cards.querySelector('li')) {
     cards.querySelector('li').remove()
   }
-  newBoard();
+  deck.newBoard();
 }
 
-function resetMoves () {
-  // TODO
-}
+
 
 function resetTimer () {
   // TODO
@@ -484,6 +474,7 @@ function modal() {
     resetCount();
     resetElements();
     resetBoard();
+    section.resetMoves();
 
 
 
