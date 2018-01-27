@@ -96,6 +96,16 @@ var section = {
      section.movesElement = document.querySelector('.moves');
    },
 
+   createRestart: function() {
+     const newDiv = document.createElement('div');
+     section.sectionElement.appendChild(newDiv);
+     newDiv.classList.add('restart');
+
+     const newI = document.createElement('i');
+     newDiv.appendChild(newI);
+     newI.classList.add('fa', 'fa-repeat');
+   },
+
   resetMoves: function() {
      section.moves = 0;
    },
@@ -484,6 +494,7 @@ function addBackSection () {
 
   section.updateStars()
   section.createSpan()
+  section.createRestart()
 
 
   section.updateMoves()
