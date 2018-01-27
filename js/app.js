@@ -236,6 +236,13 @@ var deck = {
       }
 
       return array;
+  },
+
+  erase: function() {
+    while (deck.ulElement.querySelector('li')) {
+      deck.ulElement.querySelector('li').remove()
+    }
+    deck.newBoard();
   }
 };
 
@@ -272,34 +279,16 @@ function func(element) {
 
 // eventlistener to restart board
 section.restartElement.addEventListener('click', function(event) {
-  resetBoard();
+  deck.erase();
   section.resetMoves();
   section.updateMoves();
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 deck.isIdentical();
 deck.getSelected();
 deck.countSelected();
 
-
-// function that makes the cards class="card match" IF they are identical
-// if they are not, then it makes them hidden again (class="card")
-
-
-
-    //Do something
 
 // This function should include everything that has to be done
 // when a user registrers a click
@@ -346,14 +335,7 @@ function isGameWon() {
 // functions to reset the game
 
 
-function resetBoard () {
-  const cards = document.querySelector('.deck');
 
-  while (cards.querySelector('li')) {
-    cards.querySelector('li').remove()
-  }
-  deck.newBoard();
-}
 
 
 
@@ -436,7 +418,7 @@ function modal() {
   buttonElement.addEventListener('click', function(event) {
 
     resetElements();
-    resetBoard();
+    deck.erase();
     section.resetMoves();
     section.updateMoves();
 
