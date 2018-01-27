@@ -157,6 +157,35 @@ var deck = {
       return count;
   },
 
+  // function that returns players selected cards
+  getSelected: function() {
+    const cardSelected = [];
+    const arrayLength = deck.allCards.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+      // open cards have a class length of 3
+      if (deck.allCards[i].classList.length == 3) {
+        // push open card to list TODO: make this a simple count instead
+            cardSelected.push(deck.allCards[i])
+          }
+      }
+
+      // if two cards are selected by user
+      if (cardSelected[1] != undefined) {
+        const cardA = cardSelected[0].querySelector('i');
+        const cardB = cardSelected[1].querySelector('i');
+        if (cardA.classList.toString() == cardB.classList.toString()) {
+          return [cardA, cardB];
+        }
+        else {
+          return [cardA, cardB];
+        }
+    }
+    else {
+      console.log("select more cards")
+    }
+  },
+
 
   // function that checks if the players selected cards are identical
   // output: true if identical, false if not
@@ -256,39 +285,12 @@ section.restartElement.addEventListener('click', function(event) {
 
 
 
-// function that gets selected cards
-function getSelected() {
-  const cardSelected = [];
-  const arrayLength = deck.allCards.length;
 
-  for (var i = 0; i < arrayLength; i++) {
-    // open cards have a class length of 3
-    if (deck.allCards[i].classList.length == 3) {
-      // push open card to list TODO: make this a simple count instead
-          cardSelected.push(deck.allCards[i])
-        }
-    }
-
-    // if two cards are selected by user
-    if (cardSelected[1] != undefined) {
-      const cardA = cardSelected[0].querySelector('i');
-      const cardB = cardSelected[1].querySelector('i');
-      if (cardA.classList.toString() == cardB.classList.toString()) {
-        return [cardA, cardB];
-      }
-      else {
-        return [cardA, cardB];
-      }
-  }
-  else {
-    console.log("select more cards")
-  }
-}
 
 
 
 deck.isIdentical();
-getSelected(deck.allCards);
+deck.getSelected();
 deck.countSelected();
 
 
@@ -305,8 +307,8 @@ function simulate() {
 
   setTimeout(function(){
     if (deck.isIdentical()) {
-      a = getSelected(deck.allCards)[0].parentNode
-      b = getSelected(deck.allCards)[1].parentNode
+      a = deck.getSelected()[0].parentNode
+      b = deck.getSelected()[1].parentNode
 
       a.classList.add("card");
       a.classList.add("match");
@@ -319,8 +321,8 @@ function simulate() {
 
     }
     else {
-      a = getSelected(deck.allCards)[0].parentNode
-      b = getSelected(deck.allCards)[1].parentNode
+      a = deck.getSelected()[0].parentNode
+      b = deck.getSelected()[1].parentNode
       a.className = "card";
       b.className = "card";
       section.moves += 1
