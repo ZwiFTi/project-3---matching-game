@@ -112,6 +112,7 @@ var deck = {
 
   ulElement: document.querySelector('.deck'),
   allCards: document.getElementsByClassName("card"),
+  matchedCards: document.getElementsByClassName("card match"),
 
 
   newBoard: function() {
@@ -238,12 +239,26 @@ var deck = {
       return array;
   },
 
+  // function to erase all cards
   erase: function() {
     while (deck.ulElement.querySelector('li')) {
       deck.ulElement.querySelector('li').remove()
     }
     deck.newBoard();
+  },
+
+
+  // Checks if all cards are matched. Returns true if win, false if not
+  isGameWon: function() {
+    if (deck.matchedCards.length == 16) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
+
+
 };
 
 
@@ -304,9 +319,11 @@ function simulate() {
       b.classList.add("card");
       b.classList.add("match");
 
-      // check if game is won
+      // check if game is won, and present a modal if it is
       section.moves += 1
-      isGameWon();
+      if (deck.isGameWon()) {
+        modal();
+      }
 
     }
     else {
@@ -317,20 +334,10 @@ function simulate() {
       section.moves += 1
     }
 }, 1500);
-  console.log(section.moves)
 }
 
 
-function isGameWon() {
-  const matched = document.getElementsByClassName("card match");
-  if (matched.length == 16) {
-    console.log("You have won the fucking game");
-    modal();
-  }
-  else {
-    console.log("keep on playing");
-  }
-}
+
 
 // functions to reset the game
 
