@@ -1,20 +1,42 @@
-# Memory Game Project
+# Memory Game
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Description](#description)
+* [Installation](#installation)
 * [Contributing](#contributing)
+* [Known issues](#known)
+* [License](#known)
 
-## Instructions
+## Description
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This is a game where you have to memorize the positions of certain items, and match them
+together as pairs. Each move consists of the player flipping over two cards. When all cards
+are matched, player wins.
 
-To get started, open `js/app.js` and start building out the app's functionality
+Win in less than 10 moves for the best star rating, less than 15 stars for two stars and
+less than 20 for 1 star. Be careful, above 20, and you won't get a star!
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+
+## Installation
+
+```
+git clone https://github.com/ZwiFTi/project-3---matching-game.git
+cd Project\ 3\ -\ Memory\ game/
+open index.html
+play
+```
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This project is a practice project, and is therefor not open for contribution.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Known issues
+
+There is no known issues to date.
+
+
+## License
+
+The contents of this repository are covered under the [MIT License](LICENSE).
