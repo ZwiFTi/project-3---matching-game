@@ -91,7 +91,13 @@ var section = {
 
   resetMoves: function() {
      section.moves = 0;
-   }
+   },
+
+  updateMoves: function() {
+     if (section.movesElement) {
+       section.movesElement.innerHTML = section.moves;
+     }
+   },
 };
 
 
@@ -188,8 +194,8 @@ function func(element) {
 
 section.restartElement.addEventListener('click', function(event) {
   resetBoard();
-  resetCount();
   section.resetMoves();
+  section.updateMoves();
 });
 
 
@@ -471,10 +477,10 @@ function modal() {
 
   buttonElement.addEventListener('click', function(event) {
 
-    resetCount();
     resetElements();
     resetBoard();
     section.resetMoves();
+    section.updateMoves();
 
 
 
@@ -498,21 +504,8 @@ function modal() {
   });
 }
 
-function lessStar () {
-  const starElement = document.querySelector('stars');
-}
 
 
-
-
-
-function resetCount() {
-  const container = document.querySelector('.container');
-  section.moves = 0;
-  if (container.querySelector(".moves")) {
-    container.querySelector(".moves").innerHTML = "0";
-  }
-}
 
 function resetElements() {
   const container = document.querySelector('.container');
