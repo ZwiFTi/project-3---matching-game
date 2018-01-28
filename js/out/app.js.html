@@ -26,20 +26,12 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// TODO: En stopper, slik at man ikke kan velge mer enn to kort
-// TODO: Clicks should only be recorded when users clicks a card
-// TODO: Object-oriented functional
-// TODO: The moves are recorded at first click. It should be recorded after both clicks!
-
-
-
-
-/**
- * @description Represent the section element from index.html. All operations,
- * methods, and properties that is included or performed on this element and its
- * child elements are included in this object.
- * @constructor
- */
+            <pre class="prettyprint source linenums"><code>/**
+* @description Represent the section element from index.html. All operations,
+* methods, and properties that is included or performed on this element and its
+* child elements are included in this object.
+* @constructor
+*/
 const section = {
   sectionElement: document.querySelector('.score-panel'),
   starElement: document.querySelector('.stars'),
@@ -49,11 +41,11 @@ const section = {
   moves: 0,
 
   /**
-   * @description Removes all child elements (or stars ingame) from
-   * the ul element with classname of stars.
-   */
+  * @description Removes all child elements (or stars ingame) from
+  * the ul element with classname of stars.
+  */
   removeStars: function() {
-    for (var i = 0; i &lt; 4; i++) {
+    for (let i = 0; i &lt; 4; i++) {
       if (section.starElement.querySelector('li')) {
         section.starElement.querySelector('li').remove();
       }
@@ -61,23 +53,23 @@ const section = {
   },
 
   /**
-   * @description Adds stars to section, ul
-   * @param {string} x - Number of stars to be added to -ul-
-   */
+  * @description Adds stars to section, ul
+  * @param {string} x - Number of stars to be added to -ul-
+  */
   appendStars: function(x) {
-    for (var i = 0; i &lt; x; i++) {
+    for (let i = 0; i &lt; x; i++) {
       const newLi = document.createElement('li');
       section.starElement.appendChild(newLi);
       const newI = document.createElement('i');
       newI.classList.add('fa', 'fa-star');
       newLi.appendChild(newI);
-      }
+    }
   },
 
   /**
-   * @description Update or refreshes the game with stars based on
-   * how many moves the player has made.
-   */
+  * @description Update or refreshes the game with stars based on
+  * how many moves the player has made.
+  */
   updateStars: function() {
     section.removeStars();
     if (section.moves &lt; 10) {
@@ -92,241 +84,257 @@ const section = {
   },
 
   /**
-   * @description A method that gets how many stars the player currently is at
-   * based on how many moves she/he has made.
-   * @returns {number} Either 3, 2, 1 or 0 stars
-   */
-   getStars: function() {
-     if (section.moves &lt; 10) {
-       return 3;
-     } else if (section.moves &lt; 15) {
-       return 2;
-     } else if (section.moves &lt; 20) {
-       return 1;
-     } else {
-       return 0;
-     }
-   },
+  * @description A method that gets how many stars the player currently is at
+  * based on how many moves she/he has made.
+  * @returns {number} Either 3, 2, 1 or 0 stars
+  */
+  getStars: function() {
+    if (section.moves &lt; 10) {
+      return 3;
+    } else if (section.moves &lt; 15) {
+      return 2;
+    } else if (section.moves &lt; 20) {
+      return 1;
+    } else {
+      return 0;
+    }
+  },
 
 
-   /**
-    * @description Creates a new span element with classname of moves
-    */
-   createSpan: function() {
-     const newSpan = document.createElement('span');
-     section.sectionElement.appendChild(newSpan);
-     newSpan.classList.add('moves');
+  /**
+  * @description Creates a new span element with classname of moves
+  */
+  createSpan: function() {
+    const newSpan = document.createElement('span');
+    section.sectionElement.appendChild(newSpan);
+    newSpan.classList.add('moves');
 
-     // update the element
-     section.movesElement = document.querySelector('.moves');
-   },
-
-
-   /**
-    * @description Creates a div with a classname of 'restart' and a child i
-    * with a classname of 'fa fa-repeat'
-    */
-   createRestart: function() {
-     const newDiv = document.createElement('div');
-     section.sectionElement.appendChild(newDiv);
-     newDiv.classList.add('restart');
-
-     const newI = document.createElement('i');
-     newDiv.appendChild(newI);
-     newI.classList.add('fa', 'fa-repeat');
-   },
+    // update the element
+    section.movesElement = document.querySelector('.moves');
+  },
 
 
-   /**
-    * @description Resets the number of moves a player has made.
-    */
+  /**
+  * @description Creates a div with a classname of 'restart' and a child i
+  * with a classname of 'fa fa-repeat'
+  */
+  createRestart: function() {
+    const newDiv = document.createElement('div');
+    section.sectionElement.appendChild(newDiv);
+    newDiv.classList.add('restart');
+
+    const newI = document.createElement('i');
+    newDiv.appendChild(newI);
+    newI.classList.add('fa', 'fa-repeat');
+  },
+
+
+  /**
+  * @description Resets the number of moves a player has made.
+  */
   resetMoves: function() {
-     section.moves = 0;
-   },
+    section.moves = 0;
+  },
 
-   /**
-    * @description Updates the text inside the span with class="moves"
-    * to be equal to the number of moves the player has made in the game
-    */
+  /**
+  * @description Updates the text inside the span with class="moves"
+  * to be equal to the number of moves the player has made in the game
+  */
   updateMoves: function() {
-     if (section.movesElement) {
-       section.movesElement.innerHTML = section.moves + " Moves";
-     }
-   },
+    if (section.movesElement) {
+      section.movesElement.innerHTML = section.moves + " Moves";
+    }
+  },
 };
 
-
-var deck = {
-  deckList: ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o",
-    "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
-    "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
-  ],
-
-  ulElement: document.querySelector('.deck'),
-  allCards: document.getElementsByClassName("card"),
-  matchedCards: document.getElementsByClassName("card match"),
-  startTime: 0,
-  endTime: 0,
-
-
-  newBoard: function() {
-    const newDeck = deck.shuffle(deck.deckList);
-
-    // Laying out the list items from the shuffled deck
-    for (var i = 0; i &lt; 16; i++) {
-      // Creating a brand new &lt;li> element
-      const newLi = document.createElement('li');
-
-      // Adding the class "card" to the newly added &lt;li> element
-      newLi.classList.add("card");
-
-      //storing the .deck parent
-      const deckUl = document.querySelector('.deck');
-
-      // and appending the added &lt;li> element to deck parent
-      deckUl.appendChild(newLi);
+/**
+* @description Represent the ul element with classname "deck from index.html.
+* All operations, methods, and properties that is included or performed on
+* this element and its child elements are included in this object.
+* @constructor
+*/
+const deck = {
+  deckList: ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
+  'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube',
+  'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'
+],
+ulElement: document.querySelector('.deck'),
+allCards: document.getElementsByClassName('card'),
+matchedCards: document.getElementsByClassName('card match'),
+startTime: 0,
+endTime: 0,
 
 
-      const newI = document.createElement('i');
-      newI.classList.add('fa', newDeck[i]);
-      newLi.appendChild(newI);
-    }
-  },
+/**
+* @description Laying out the list items from the shuffled deck
+*/
+newBoard: function() {
+  const newDeck = deck.shuffle(deck.deckList);
 
-  // Counts how many cards the player has selected / open
-  countSelected: function() {
-    let count = 0;
-    const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i &lt; arrayLength; i++) {
-      // open cards have a class length of 3
-      if (deck.allCards[i].classList.length == 3) {
-        // push open card to list TODO: make this a simple count instead
-            count += 1;
-          }
-      else {
-        count = count;
-      }
-      }
+  for (let i = 0; i &lt; 16; i++) {
+    // Creating a brand new &lt;li> element
+    const newLi = document.createElement('li');
 
-      return count;
-  },
+    // Adding the class "card" to the newly added &lt;li> element
+    newLi.classList.add('card');
 
-  // function that returns players selected cards
-  getSelected: function() {
-    const cardSelected = [];
-    const arrayLength = deck.allCards.length;
+    //storing the .deck parent
+    const deckUl = document.querySelector('.deck');
 
-    for (var i = 0; i &lt; arrayLength; i++) {
-      // open cards have a class length of 3
-      if (deck.allCards[i].classList.length == 3) {
-        // push open card to list TODO: make this a simple count instead
-            cardSelected.push(deck.allCards[i])
-          }
-      }
+    // and appending the added &lt;li> element to deck parent
+    deckUl.appendChild(newLi);
 
-      // if two cards are selected by user
-      if (cardSelected[1] != undefined) {
-        const cardA = cardSelected[0].querySelector('i');
-        const cardB = cardSelected[1].querySelector('i');
-        if (cardA.classList.toString() == cardB.classList.toString()) {
-          return [cardA, cardB];
-        }
-        else {
-          return [cardA, cardB];
-        }
+    const newI = document.createElement('i');
+    newI.classList.add('fa', newDeck[i]);
+    newLi.appendChild(newI);
+  }
+},
+
+
+/**
+* @description Counts how many cards the player has selected / open
+*/
+countSelected: function() {
+  let count = 0;
+  const arrayLength = deck.allCards.length;
+
+  for (let i = 0; i &lt; arrayLength; i++) {
+    // open cards have a class length of 3
+    if (deck.allCards[i].classList.length == 3) {
+      count += 1;
     }
     else {
-      console.log("select more cards")
+      count = count;
     }
-  },
+  }
+  return count;
+},
 
 
-  // function that checks if the players selected cards are identical
-  // output: true if identical, false if not
-  isIdentical: function() {
-    const cardSelected = [];
-    const arrayLength = deck.allCards.length;
+/**
+* @description method that gets players selected cards. The method is used
+* to check if player has selected two cards
+* @returns {array} with card A and card B
+*/
+getSelected: function() {
+  const cardSelected = [];
+  const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i &lt; arrayLength; i++) {
-      // open cards have a class length of 3
-      if (deck.allCards[i].classList.length == 3) {
-        // push open card to list TODO: make this a simple count instead
-            cardSelected.push(deck.allCards[i])
-          }
-      }
+  for (let i = 0; i &lt; arrayLength; i++) {
+    // open cards have a class length of 3
+    if (deck.allCards[i].classList.length == 3) {
+      // push open card to list TODO: make this a simple count instead
+      cardSelected.push(deck.allCards[i])
+    }
+  }
 
-      // if two cards are selected by user
-      if (cardSelected[1] != undefined) {
-        const cardA = cardSelected[0].querySelector('i');
-        const cardB = cardSelected[1].querySelector('i');
-        if (cardA.classList.toString() == cardB.classList.toString()) {
-          return true;
-        }
-        else {
-          return false;
-        }
+  // if two cards are selected by user
+  if (cardSelected[1] != undefined) {
+    const cardA = cardSelected[0].querySelector('i');
+    const cardB = cardSelected[1].querySelector('i');
+    if (cardA.classList.toString() == cardB.classList.toString()) {
+      return [cardA, cardB];
     }
     else {
-      console.log("select more cards")
+      return [cardA, cardB];
     }
-  },
-  /*
-   * Display the cards on the page
-   *   - shuffle the list of cards using the provided "shuffle" method below
-   *   - loop through each card and create its HTML
-   *   - add each card's HTML to the page
-   */
+  }
+  else {
+    // nothing
+  }
+},
 
-  // Shuffle function from http://stackoverflow.com/a/2450976
-  shuffle: function(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
 
-      while (currentIndex !== 0) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
-      }
+/**
+* @description function that checks if the players selected cards are identical
+* @returns {boolean} true if identical, false if not
+*/
+isIdentical: function() {
+  const cardSelected = [];
+  const arrayLength = deck.allCards.length;
 
-      return array;
-  },
-
-  // function to erase all cards
-  erase: function() {
-    while (deck.ulElement.querySelector('li')) {
-      deck.ulElement.querySelector('li').remove()
+  for (let i = 0; i &lt; arrayLength; i++) {
+    // open cards have a class length of 3
+    if (deck.allCards[i].classList.length == 3) {
+      // push open card to list TODO: make this a simple count instead
+      cardSelected.push(deck.allCards[i])
     }
-    deck.newBoard();
-  },
+  }
 
-
-  // Checks if all cards are matched. Returns true if win, false if not
-  isGameWon: function() {
-    if (deck.matchedCards.length == 16) {
-      deck.endTime = performance.now();
-      console.log(deck.endTime);
+  // if two cards are selected by user
+  if (cardSelected[1] != undefined) {
+    const cardA = cardSelected[0].querySelector('i');
+    const cardB = cardSelected[1].querySelector('i');
+    if (cardA.classList.toString() == cardB.classList.toString()) {
       return true;
     }
     else {
       return false;
     }
-  },
-
-  resetTime: function() {
-    deck.startTime = 0;
-    deck.endTime = 0;
   }
+  else {
+    // nothing
+  }
+},
 
 
+/**
+* @description Shuffles elements in an array
+* @returns {array} true if identical, false if not
+* Shuffle function from http://stackoverflow.com/a/2450976
+*/
+shuffle: function(array) {
+  let currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+},
+
+/**
+* @description Erases all cards
+*/
+erase: function() {
+  while (deck.ulElement.querySelector('li')) {
+    deck.ulElement.querySelector('li').remove()
+  }
+  deck.newBoard();
+},
+
+/**
+* @description Checks if all cards are matched (if matched = win)
+* @returns {boolean} true if all cards match, false if not
+*/
+isGameWon: function() {
+  if (deck.matchedCards.length == 16) {
+    deck.endTime = performance.now();
+    console.log(deck.endTime);
+    return true;
+  }
+  else {
+    return false;
+  }
+},
+
+
+/**
+* @description Simply resets the timer of the game
+*/
+resetTime: function() {
+  deck.startTime = 0;
+  deck.endTime = 0;
+}
 };
 
 
-
+// GAME RELATED STUFF //
 deck.newBoard();
-
-
 
 // listen to user clicking a hidden card
 // flip the card on click
@@ -343,7 +351,7 @@ deck.ulElement.addEventListener('click', function(event) {
     simulate();
     section.updateMoves();
     section.updateStars();
-    }
+  }
   else {
     // do nothing
   }
@@ -353,9 +361,6 @@ function func(element) {
   element.classList.add('open');
   element.classList.add('show');
 }
-
-
-
 
 // eventlistener to restart board
 section.restartElement.addEventListener('click', function(event) {
@@ -370,19 +375,20 @@ deck.getSelected();
 deck.countSelected();
 
 
-// This function should include everything that has to be done
-// when a user registrers a click
+/**
+* @description Represents everything that has to be done
+* when a user registrers a click
+*/
 function simulate() {
-
   setTimeout(function(){
     if (deck.isIdentical()) {
       a = deck.getSelected()[0].parentNode
       b = deck.getSelected()[1].parentNode
 
-      a.classList.add("card");
-      a.classList.add("match");
-      b.classList.add("card");
-      b.classList.add("match");
+      a.classList.add('card');
+      a.classList.add('match');
+      b.classList.add('card');
+      b.classList.add('match');
 
       // check if game is won, and present a modal if it is
       section.moves += 1
@@ -394,24 +400,22 @@ function simulate() {
     else {
       a = deck.getSelected()[0].parentNode
       b = deck.getSelected()[1].parentNode
-      a.className = "card";
-      b.className = "card";
+      a.className = 'card';
+      b.className = 'card';
       section.moves += 1
     }
-}, 1500);
+  }, 1500);
 }
 
-// functions for winning the game
+// WINNING GAME CONDITIONS //
 
+/**
+* @description Displaying a modal
+*/
 function modal() {
-  // Inputs how many stars the user has
   const container = document.querySelector('.container');
 
-  // change header
-  // container.querySelector('h1').textContent = 'Congratulations! You won!';
-
-
-  // remove game stuff
+  // remove elements thats not needed
   while (container.querySelector('section')) {
     container.querySelector('section').remove()
   }
@@ -428,38 +432,31 @@ function modal() {
 
   // add p to div
   const mainDiv = container.querySelector('div');
-  mainDiv.className = "deck modal";
+  mainDiv.className = 'deck modal';
 
 
   // populate the div with winning information
   mainDiv.appendChild(newButton);
 
   // give button a bootstrap class
-  mainDiv.querySelector('button').className = "btn-default"
+  mainDiv.querySelector('button').className = 'btn-default'
+  mainDiv.querySelector('button').innerHTML = 'PLAY AGAIN';
 
 
-
-  //TODO: APPEND ALL WINNING STUFF HERE!!
-  mainDiv.querySelector('button').innerHTML = "PLAY AGAIN";
-
-
-  const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars! and used time: " + timeConversion((deck.endTime-deck.startTime))];
+  const info = ['Congratulations!',
+  'You finished with ' + section.getStars() +
+  ' star(s) and took ' + timeConversion((deck.endTime-deck.startTime)) + ' to complete.' +
+  'It took ' + section.moves + ' moves to complete!'];
   const arrayLength = info.length;
-  console.log(arrayLength);
-  for (var i = 0; i &lt; arrayLength; i++) {
-    console.log("wokring good")
+  for (let i = 0; i &lt; arrayLength; i++) {
     // Creating a brand new &lt;li> element
     const newP = document.createElement('p');
-    newP.classList.add("p-"+i);
+    newP.classList.add('p-'+i);
     const divElement = document.querySelector('.deck');
     console.log(divElement);
     divElement.appendChild(newP);
     mainDiv.querySelector('.p-'+i).innerHTML = info[i];
   };
-
-  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', " " + section.moves + " moves");
-
-  //TODO: Listen to button press, then reset game
 
   const buttonElement = document.querySelector('button');
 
@@ -484,8 +481,8 @@ function modal() {
         section.updateStars();
         if (section.moves == 0) {
           deck.startTime = performance.now();
-          }
         }
+      }
       else {
         // do nothing
       }
@@ -496,7 +493,9 @@ function modal() {
 
 
 
-
+/**
+* @description Used to wipe out the modal to get a clean new game
+*/
 function resetElements() {
   const container = document.querySelector('.container');
 
@@ -518,15 +517,16 @@ function resetElements() {
   // create a brand new &lt;span> element
   addBackSection();
   const newUl = document.createElement('ul');
-  newUl.className = "deck";
+  newUl.className = 'deck';
 
   // select the first (main) heading of the pag
-
   // add the the &lt;span> element as the last child element of the main heading
   container.appendChild(newUl);
 }
 
-
+/**
+* @description Used to add back stuff to game after winning
+*/
 function addBackSection () {
   const container = document.querySelector('.container');
 
@@ -534,10 +534,10 @@ function addBackSection () {
   const newUl = document.createElement('ul');
 
   container.appendChild(newSection);
-  container.querySelector('section').className = "score-panel";
+  container.querySelector('section').className = 'score-panel';
   container.querySelector('section').appendChild(newUl)
 
-  container.querySelector('section').querySelector('ul').className = "stars";
+  container.querySelector('section').querySelector('ul').className = 'stars';
 
   section.resetMoves();
 
@@ -545,37 +545,34 @@ function addBackSection () {
   section.starElement = document.querySelector('.stars');
   section.sectionElement = document.querySelector('.score-panel');
 
-
+  // Refresh the section element
   section.updateStars()
   section.createSpan()
   section.createRestart()
-
-
   section.updateMoves()
 }
 
-
-/* from: https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript */
+/**
+* @description Converts milliseconds to a human readable format'
+* @returns {string} 10 Sec, 10 Min, 10 Hrs or 10 Days.
+* from: https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript
+*/
 function timeConversion(millisec) {
+  const seconds = (millisec / 1000).toFixed(1);
+  const minutes = (millisec / (1000 * 60)).toFixed(1);
+  const hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+  const days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
-        var seconds = (millisec / 1000).toFixed(1);
-
-        var minutes = (millisec / (1000 * 60)).toFixed(1);
-
-        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-
-        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-        if (seconds &lt; 60) {
-            return seconds + " Sec";
-        } else if (minutes &lt; 60) {
-            return minutes + " Min";
-        } else if (hours &lt; 24) {
-            return hours + " Hrs";
-        } else {
-            return days + " Days"
-        }
-    }
+  if (seconds &lt; 60) {
+    return seconds + ' Sec';
+  } else if (minutes &lt; 60) {
+    return minutes + ' Min';
+  } else if (hours &lt; 24) {
+    return hours + ' Hrs';
+  } else {
+    return days + ' Days'
+  }
+}
 </code></pre>
         </article>
     </section>
@@ -586,13 +583,13 @@ function timeConversion(millisec) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="section.html">section</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="deck.html">deck</a></li><li><a href="section.html">section</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBackSection">addBackSection</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#resetElements">resetElements</a></li><li><a href="global.html#simulate">simulate</a></li><li><a href="global.html#timeConversion">timeConversion</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jan 27 2018 18:03:09 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jan 28 2018 09:20:59 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
