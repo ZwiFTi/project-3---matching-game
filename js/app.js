@@ -415,9 +415,10 @@ function modal() {
   mainDiv.querySelector('button').innerHTML = 'PLAY AGAIN';
 
 
-  const info = ['Congratulations!', 'Do you want to play again?',
-    'You finished in', 'You finished with ' + section.getStars() +
-    ' stars! and used time: ' + timeConversion((deck.endTime-deck.startTime))];
+  const info = ['Congratulations!',
+    'You finished with ' + section.getStars() +
+    ' star(s) and took ' + timeConversion((deck.endTime-deck.startTime)) + ' to complete.' +
+    'It took ' + section.moves + ' moves to complete!'];
   const arrayLength = info.length;
   for (let i = 0; i < arrayLength; i++) {
     // Creating a brand new <li> element
@@ -428,9 +429,6 @@ function modal() {
     divElement.appendChild(newP);
     mainDiv.querySelector('.p-'+i).innerHTML = info[i];
   };
-
-  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', ' ' +
-    section.moves + ' moves');
 
   const buttonElement = document.querySelector('button');
 
