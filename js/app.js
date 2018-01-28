@@ -23,7 +23,7 @@ const section = {
   * the ul element with classname of stars.
   */
   removeStars: function() {
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       if (section.starElement.querySelector('li')) {
         section.starElement.querySelector('li').remove();
       }
@@ -35,7 +35,7 @@ const section = {
   * @param {string} x - Number of stars to be added to -ul-
   */
   appendStars: function(x) {
-    for (var i = 0; i < x; i++) {
+    for (let i = 0; i < x; i++) {
       const newLi = document.createElement('li');
       section.starElement.appendChild(newLi);
       const newI = document.createElement('i');
@@ -150,7 +150,7 @@ const deck = {
     const newDeck = deck.shuffle(deck.deckList);
 
 
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       // Creating a brand new <li> element
       const newLi = document.createElement('li');
 
@@ -177,7 +177,7 @@ const deck = {
     let count = 0;
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (let i = 0; i < arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
             count += 1;
@@ -199,7 +199,7 @@ const deck = {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (let i = 0; i < arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
         // push open card to list TODO: make this a simple count instead
@@ -232,7 +232,7 @@ const deck = {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
 
-    for (var i = 0; i < arrayLength; i++) {
+    for (let i = 0; i < arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
         // push open card to list TODO: make this a simple count instead
@@ -263,7 +263,7 @@ const deck = {
   * Shuffle function from http://stackoverflow.com/a/2450976
   */
   shuffle: function(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
+      let currentIndex = array.length, temporaryValue, randomIndex;
 
       while (currentIndex !== 0) {
           randomIndex = Math.floor(Math.random() * currentIndex);
@@ -426,7 +426,7 @@ function modal() {
   const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars! and used time: " + timeConversion((deck.endTime-deck.startTime))];
   const arrayLength = info.length;
   console.log(arrayLength);
-  for (var i = 0; i < arrayLength; i++) {
+  for (let i = 0; i < arrayLength; i++) {
     console.log("wokring good")
     // Creating a brand new <li> element
     const newP = document.createElement('p');
