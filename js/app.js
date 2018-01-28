@@ -1,9 +1,3 @@
-// TODO: En stopper, slik at man ikke kan velge mer enn to kort
-// TODO: Clicks should only be recorded when users clicks a card
-// TODO: Object-oriented functional
-// TODO: The moves are recorded at first click. It should be recorded after both clicks!
-
-
 /**
 * @description Represent the section element from index.html. All operations,
 * methods, and properties that is included or performed on this element and its
@@ -132,13 +126,13 @@ const section = {
 * @constructor
 */
 const deck = {
-  deckList: ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o",
-    "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
-    "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"
+  deckList: ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
+    'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube',
+    'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'
   ],
   ulElement: document.querySelector('.deck'),
-  allCards: document.getElementsByClassName("card"),
-  matchedCards: document.getElementsByClassName("card match"),
+  allCards: document.getElementsByClassName('card'),
+  matchedCards: document.getElementsByClassName('card match'),
   startTime: 0,
   endTime: 0,
 
@@ -155,7 +149,7 @@ const deck = {
       const newLi = document.createElement('li');
 
       // Adding the class "card" to the newly added <li> element
-      newLi.classList.add("card");
+      newLi.classList.add('card');
 
       //storing the .deck parent
       const deckUl = document.querySelector('.deck');
@@ -219,7 +213,7 @@ const deck = {
         }
     }
     else {
-      console.log("select more cards")
+      // nothing
     }
   },
 
@@ -252,7 +246,7 @@ const deck = {
         }
     }
     else {
-      console.log("select more cards")
+      // nothing
     }
   },
 
@@ -272,7 +266,6 @@ const deck = {
           array[currentIndex] = array[randomIndex];
           array[randomIndex] = temporaryValue;
       }
-
       return array;
   },
 
@@ -354,7 +347,6 @@ deck.getSelected();
 deck.countSelected();
 
 
-
 /**
 * @description Represents everything that has to be done
 * when a user registrers a click
@@ -365,10 +357,10 @@ function simulate() {
       a = deck.getSelected()[0].parentNode
       b = deck.getSelected()[1].parentNode
 
-      a.classList.add("card");
-      a.classList.add("match");
-      b.classList.add("card");
-      b.classList.add("match");
+      a.classList.add('card');
+      a.classList.add('match');
+      b.classList.add('card');
+      b.classList.add('match');
 
       // check if game is won, and present a modal if it is
       section.moves += 1
@@ -380,8 +372,8 @@ function simulate() {
     else {
       a = deck.getSelected()[0].parentNode
       b = deck.getSelected()[1].parentNode
-      a.className = "card";
-      b.className = "card";
+      a.className = 'card';
+      b.className = 'card';
       section.moves += 1
     }
 }, 1500);
@@ -412,32 +404,33 @@ function modal() {
 
   // add p to div
   const mainDiv = container.querySelector('div');
-  mainDiv.className = "deck modal";
+  mainDiv.className = 'deck modal';
 
 
   // populate the div with winning information
   mainDiv.appendChild(newButton);
 
   // give button a bootstrap class
-  mainDiv.querySelector('button').className = "btn-default"
-  mainDiv.querySelector('button').innerHTML = "PLAY AGAIN";
+  mainDiv.querySelector('button').className = 'btn-default'
+  mainDiv.querySelector('button').innerHTML = 'PLAY AGAIN';
 
 
-  const info = ["Congratulations!", "Do you want to play again?", "You finished in", "You finished with " + section.getStars() + " stars! and used time: " + timeConversion((deck.endTime-deck.startTime))];
+  const info = ['Congratulations!', 'Do you want to play again?',
+    'You finished in', 'You finished with ' + section.getStars() +
+    ' stars! and used time: ' + timeConversion((deck.endTime-deck.startTime))];
   const arrayLength = info.length;
-  console.log(arrayLength);
   for (let i = 0; i < arrayLength; i++) {
-    console.log("wokring good")
     // Creating a brand new <li> element
     const newP = document.createElement('p');
-    newP.classList.add("p-"+i);
+    newP.classList.add('p-'+i);
     const divElement = document.querySelector('.deck');
     console.log(divElement);
     divElement.appendChild(newP);
     mainDiv.querySelector('.p-'+i).innerHTML = info[i];
   };
 
-  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', " " + section.moves + " moves");
+  mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', ' ' +
+    section.moves + ' moves');
 
   const buttonElement = document.querySelector('button');
 
@@ -498,10 +491,9 @@ function resetElements() {
   // create a brand new <span> element
   addBackSection();
   const newUl = document.createElement('ul');
-  newUl.className = "deck";
+  newUl.className = 'deck';
 
   // select the first (main) heading of the pag
-
   // add the the <span> element as the last child element of the main heading
   container.appendChild(newUl);
 }
@@ -516,10 +508,10 @@ function addBackSection () {
   const newUl = document.createElement('ul');
 
   container.appendChild(newSection);
-  container.querySelector('section').className = "score-panel";
+  container.querySelector('section').className = 'score-panel';
   container.querySelector('section').appendChild(newUl)
 
-  container.querySelector('section').querySelector('ul').className = "stars";
+  container.querySelector('section').querySelector('ul').className = 'stars';
 
   section.resetMoves();
 
@@ -546,12 +538,12 @@ function timeConversion(millisec) {
         const days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
         if (seconds < 60) {
-            return seconds + " Sec";
+            return seconds + ' Sec';
         } else if (minutes < 60) {
-            return minutes + " Min";
+            return minutes + ' Min';
         } else if (hours < 24) {
-            return hours + " Hrs";
+            return hours + ' Hrs';
         } else {
-            return days + " Days"
+            return days + ' Days'
         }
     }
