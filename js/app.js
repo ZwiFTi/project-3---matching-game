@@ -4,14 +4,12 @@
 // TODO: The moves are recorded at first click. It should be recorded after both clicks!
 
 
-
-
 /**
- * @description Represent the section element from index.html. All operations,
- * methods, and properties that is included or performed on this element and its
- * child elements are included in this object.
- * @constructor
- */
+* @description Represent the section element from index.html. All operations,
+* methods, and properties that is included or performed on this element and its
+* child elements are included in this object.
+* @constructor
+*/
 const section = {
   sectionElement: document.querySelector('.score-panel'),
   starElement: document.querySelector('.stars'),
@@ -21,9 +19,9 @@ const section = {
   moves: 0,
 
   /**
-   * @description Removes all child elements (or stars ingame) from
-   * the ul element with classname of stars.
-   */
+  * @description Removes all child elements (or stars ingame) from
+  * the ul element with classname of stars.
+  */
   removeStars: function() {
     for (var i = 0; i < 4; i++) {
       if (section.starElement.querySelector('li')) {
@@ -33,9 +31,9 @@ const section = {
   },
 
   /**
-   * @description Adds stars to section, ul
-   * @param {string} x - Number of stars to be added to -ul-
-   */
+  * @description Adds stars to section, ul
+  * @param {string} x - Number of stars to be added to -ul-
+  */
   appendStars: function(x) {
     for (var i = 0; i < x; i++) {
       const newLi = document.createElement('li');
@@ -47,9 +45,9 @@ const section = {
   },
 
   /**
-   * @description Update or refreshes the game with stars based on
-   * how many moves the player has made.
-   */
+  * @description Update or refreshes the game with stars based on
+  * how many moves the player has made.
+  */
   updateStars: function() {
     section.removeStars();
     if (section.moves < 10) {
@@ -64,10 +62,10 @@ const section = {
   },
 
   /**
-   * @description A method that gets how many stars the player currently is at
-   * based on how many moves she/he has made.
-   * @returns {number} Either 3, 2, 1 or 0 stars
-   */
+  * @description A method that gets how many stars the player currently is at
+  * based on how many moves she/he has made.
+  * @returns {number} Either 3, 2, 1 or 0 stars
+  */
    getStars: function() {
      if (section.moves < 10) {
        return 3;
@@ -81,9 +79,9 @@ const section = {
    },
 
 
-   /**
-    * @description Creates a new span element with classname of moves
-    */
+  /**
+  * @description Creates a new span element with classname of moves
+  */
    createSpan: function() {
      const newSpan = document.createElement('span');
      section.sectionElement.appendChild(newSpan);
@@ -94,10 +92,10 @@ const section = {
    },
 
 
-   /**
-    * @description Creates a div with a classname of 'restart' and a child i
-    * with a classname of 'fa fa-repeat'
-    */
+  /**
+  * @description Creates a div with a classname of 'restart' and a child i
+  * with a classname of 'fa fa-repeat'
+  */
    createRestart: function() {
      const newDiv = document.createElement('div');
      section.sectionElement.appendChild(newDiv);
@@ -109,17 +107,17 @@ const section = {
    },
 
 
-   /**
-    * @description Resets the number of moves a player has made.
-    */
+  /**
+  * @description Resets the number of moves a player has made.
+  */
   resetMoves: function() {
      section.moves = 0;
    },
 
-   /**
-    * @description Updates the text inside the span with class="moves"
-    * to be equal to the number of moves the player has made in the game
-    */
+  /**
+  * @description Updates the text inside the span with class="moves"
+  * to be equal to the number of moves the player has made in the game
+  */
   updateMoves: function() {
      if (section.movesElement) {
        section.movesElement.innerHTML = section.moves + " Moves";
@@ -127,7 +125,12 @@ const section = {
    },
 };
 
-
+/**
+* @description Represent the ul element with classname "deck from index.html.
+* All operations, methods, and properties that is included or performed on
+* this element and its child elements are included in this object.
+* @constructor
+*/
 const deck = {
   deckList: ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o",
     "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
@@ -140,10 +143,13 @@ const deck = {
   endTime: 0,
 
 
+  /**
+  * @description Laying out the list items from the shuffled deck
+  */
   newBoard: function() {
     const newDeck = deck.shuffle(deck.deckList);
 
-    // Laying out the list items from the shuffled deck
+
     for (var i = 0; i < 16; i++) {
       // Creating a brand new <li> element
       const newLi = document.createElement('li');
@@ -157,14 +163,16 @@ const deck = {
       // and appending the added <li> element to deck parent
       deckUl.appendChild(newLi);
 
-
       const newI = document.createElement('i');
       newI.classList.add('fa', newDeck[i]);
       newLi.appendChild(newI);
     }
   },
 
-  // Counts how many cards the player has selected / open
+
+  /**
+  * @description Counts how many cards the player has selected / open
+  */
   countSelected: function() {
     let count = 0;
     const arrayLength = deck.allCards.length;
@@ -172,18 +180,21 @@ const deck = {
     for (var i = 0; i < arrayLength; i++) {
       // open cards have a class length of 3
       if (deck.allCards[i].classList.length == 3) {
-        // push open card to list TODO: make this a simple count instead
             count += 1;
           }
       else {
         count = count;
       }
-      }
-
-      return count;
+    }
+    return count;
   },
 
-  // function that returns players selected cards
+
+  /**
+  * @description method that gets players selected cards. The method is used
+  * to check if player has selected two cards
+  * @returns {array} with card A and card B
+  */
   getSelected: function() {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
@@ -213,8 +224,10 @@ const deck = {
   },
 
 
-  // function that checks if the players selected cards are identical
-  // output: true if identical, false if not
+  /**
+  * @description function that checks if the players selected cards are identical
+  * @returns {boolean} true if identical, false if not
+  */
   isIdentical: function() {
     const cardSelected = [];
     const arrayLength = deck.allCards.length;
@@ -242,14 +255,13 @@ const deck = {
       console.log("select more cards")
     }
   },
-  /*
-   * Display the cards on the page
-   *   - shuffle the list of cards using the provided "shuffle" method below
-   *   - loop through each card and create its HTML
-   *   - add each card's HTML to the page
-   */
 
-  // Shuffle function from http://stackoverflow.com/a/2450976
+
+  /**
+  * @description Shuffles elements in an array
+  * @returns {array} true if identical, false if not
+  * Shuffle function from http://stackoverflow.com/a/2450976
+  */
   shuffle: function(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -264,7 +276,9 @@ const deck = {
       return array;
   },
 
-  // function to erase all cards
+  /**
+  * @description Erases all cards
+  */
   erase: function() {
     while (deck.ulElement.querySelector('li')) {
       deck.ulElement.querySelector('li').remove()
@@ -272,8 +286,10 @@ const deck = {
     deck.newBoard();
   },
 
-
-  // Checks if all cards are matched. Returns true if win, false if not
+  /**
+  * @description Checks if all cards are matched (if matched = win)
+  * @returns {boolean} true if all cards match, false if not
+  */
   isGameWon: function() {
     if (deck.matchedCards.length == 16) {
       deck.endTime = performance.now();
@@ -285,12 +301,14 @@ const deck = {
     }
   },
 
+
+  /**
+  * @description Simply resets the timer of the game
+  */
   resetTime: function() {
     deck.startTime = 0;
     deck.endTime = 0;
   }
-
-
 };
 
 
