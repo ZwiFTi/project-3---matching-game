@@ -312,10 +312,8 @@ const deck = {
 };
 
 
-
+// GAME RELATED STUFF //
 deck.newBoard();
-
-
 
 // listen to user clicking a hidden card
 // flip the card on click
@@ -343,9 +341,6 @@ function func(element) {
   element.classList.add('show');
 }
 
-
-
-
 // eventlistener to restart board
 section.restartElement.addEventListener('click', function(event) {
   deck.erase();
@@ -359,10 +354,12 @@ deck.getSelected();
 deck.countSelected();
 
 
-// This function should include everything that has to be done
-// when a user registrers a click
-function simulate() {
 
+/**
+* @description Represents everything that has to be done
+* when a user registrers a click
+*/
+function simulate() {
   setTimeout(function(){
     if (deck.isIdentical()) {
       a = deck.getSelected()[0].parentNode
@@ -390,17 +387,15 @@ function simulate() {
 }, 1500);
 }
 
-// functions for winning the game
+// WINNING GAME CONDITIONS //
 
+/**
+* @description Displaying a modal
+*/
 function modal() {
-  // Inputs how many stars the user has
   const container = document.querySelector('.container');
 
-  // change header
-  // container.querySelector('h1').textContent = 'Congratulations! You won!';
-
-
-  // remove game stuff
+  // remove elements thats not needed
   while (container.querySelector('section')) {
     container.querySelector('section').remove()
   }
@@ -425,10 +420,6 @@ function modal() {
 
   // give button a bootstrap class
   mainDiv.querySelector('button').className = "btn-default"
-
-
-
-  //TODO: APPEND ALL WINNING STUFF HERE!!
   mainDiv.querySelector('button').innerHTML = "PLAY AGAIN";
 
 
@@ -447,8 +438,6 @@ function modal() {
   };
 
   mainDiv.querySelector('.p-'+2).insertAdjacentHTML('beforeend', " " + section.moves + " moves");
-
-  //TODO: Listen to button press, then reset game
 
   const buttonElement = document.querySelector('button');
 
@@ -485,7 +474,9 @@ function modal() {
 
 
 
-
+/**
+* @description Used to wipe out the modal to get a clean new game
+*/
 function resetElements() {
   const container = document.querySelector('.container');
 
@@ -515,7 +506,9 @@ function resetElements() {
   container.appendChild(newUl);
 }
 
-
+/**
+* @description Used to add back stuff to game after winning
+*/
 function addBackSection () {
   const container = document.querySelector('.container');
 
@@ -534,26 +527,23 @@ function addBackSection () {
   section.starElement = document.querySelector('.stars');
   section.sectionElement = document.querySelector('.score-panel');
 
-
+  // Refresh the section element
   section.updateStars()
   section.createSpan()
   section.createRestart()
-
-
   section.updateMoves()
 }
 
-
-/* from: https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript */
+/**
+* @description Converts milliseconds to a human readable format'
+* @returns {string} 10 Sec, 10 Min, 10 Hrs or 10 Days.
+* from: https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript
+*/
 function timeConversion(millisec) {
-
-        var seconds = (millisec / 1000).toFixed(1);
-
-        var minutes = (millisec / (1000 * 60)).toFixed(1);
-
-        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-
-        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+        const seconds = (millisec / 1000).toFixed(1);
+        const minutes = (millisec / (1000 * 60)).toFixed(1);
+        const hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+        const days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
         if (seconds < 60) {
             return seconds + " Sec";
