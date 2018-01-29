@@ -373,31 +373,29 @@ deck.countSelected();
 * when a user registrers a click
 */
 function simulate() {
-  setTimeout(function(){
-    if (deck.isIdentical()) {
-      a = deck.getSelected()[0].parentNode
-      b = deck.getSelected()[1].parentNode
+  if (deck.isIdentical()) {
+    a = deck.getSelected()[0].parentNode
+    b = deck.getSelected()[1].parentNode
 
-      a.classList.add('card');
-      a.classList.add('match');
-      b.classList.add('card');
-      b.classList.add('match');
+    a.classList.add('card');
+    a.classList.add('match');
+    b.classList.add('card');
+    b.classList.add('match');
 
-      // check if game is won, and present a modal if it is
-      section.moves += 1
-      if (deck.isGameWon()) {
-        modal();
-      }
-
+    // check if game is won, and present a modal if it is
+    section.moves += 1
+    if (deck.isGameWon()) {
+      modal();
     }
-    else {
+  } else {
+    setTimeout(function() {
       a = deck.getSelected()[0].parentNode
       b = deck.getSelected()[1].parentNode
       a.className = 'card';
       b.className = 'card';
       section.moves += 1
-    }
-  }, 1500);
+    }, 1500);
+  }
 }
 
 // WINNING GAME CONDITIONS //
@@ -461,7 +459,6 @@ function modal() {
     section.updateMoves();
     deck.resetTime();
 
-
     //reset ULelement
     deck.ulElement = document.querySelector('.deck');
 
@@ -476,10 +473,6 @@ function modal() {
           deck.startTime = performance.now();
         }
       }
-      else {
-        // do nothing
-      }
-
     });
   });
 }
@@ -522,14 +515,12 @@ function resetElements() {
 */
 function addBackSection () {
   const container = document.querySelector('.container');
-
   const newSection = document.createElement('section');
   const newUl = document.createElement('ul');
 
   container.appendChild(newSection);
   container.querySelector('section').className = 'score-panel';
   container.querySelector('section').appendChild(newUl)
-
   container.querySelector('section').querySelector('ul').className = 'stars';
 
   section.resetMoves();
@@ -542,7 +533,6 @@ function addBackSection () {
   section.updateStars()
   section.createRestart()
   section.createSpan()
-
   section.updateMoves()
 }
 
