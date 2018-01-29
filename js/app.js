@@ -17,6 +17,7 @@ const section = {
   liElement: document.querySelector('.stars').querySelector('li'),
   movesElement: document.querySelector('.moves'),
   restartElement: document.querySelector('.restart'),
+  timerElement: document.querySelector('.timer'),
   moves: 0,
 
   /**
@@ -80,6 +81,13 @@ const section = {
   * @description Creates a new span element with classname of moves
   */
   createSpan: function() {
+    const newSpanTwo = document.createElement('span');
+    section.sectionElement.appendChild(newSpanTwo);
+    newSpanTwo.classList.add('timer');
+
+    // update the element
+    section.timerElement = document.querySelector('.timer');
+
     const newSpan = document.createElement('span');
     section.sectionElement.appendChild(newSpan);
     newSpan.classList.add('moves');
@@ -120,8 +128,15 @@ const section = {
       section.movesElement.innerHTML = section.moves + " Moves";
     }
   },
+  displayTimer: function() {
+    const timeNow = performance.now();
+    if (section.moves == 0) {
+      section.timerElement.innerHTML = "0 Seconds";
+    } else {
+      section.timerElement.innerHTML = timeConversion((timeNow-deck.startTime));
+    }
 
-
+  }
 };
 
 /**
@@ -319,7 +334,7 @@ deck.ulElement.addEventListener('click', function(event) {
   // only unhide cards if less than two is selected
   if (section.moves == 0) {
     deck.startTime = performance.now();
-    //setInterval(function(){ section.displayTimer(); }, 1000);
+    setInterval(function(){ section.displayTimer(); }, 100);
     console.log(deck.startTime)
   }
 
@@ -525,8 +540,9 @@ function addBackSection () {
 
   // Refresh the section element
   section.updateStars()
-  section.createSpan()
   section.createRestart()
+  section.createSpan()
+
   section.updateMoves()
 }
 
@@ -542,11 +558,11 @@ function timeConversion(millisec) {
   const days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
   if (seconds < 60) {
-    return seconds + ' Sec';
+    return seconds + ' Seconds';
   } else if (minutes < 60) {
-    return minutes + ' Min';
+    return minutes + ' Minutes';
   } else if (hours < 24) {
-    return hours + ' Hrs';
+    return hours + ' Hours';
   } else {
     return days + ' Days'
   }
