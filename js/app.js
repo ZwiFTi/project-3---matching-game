@@ -1,3 +1,10 @@
+// TODO: THIS:
+/* let nameLen = deck.shuffle(deck.deckList).map(function(name) {
+  return name;
+}); */
+
+
+
 /**
 * @description Represent the section element from index.html. All operations,
 * methods, and properties that is included or performed on this element and its
@@ -44,14 +51,12 @@ const section = {
   */
   updateStars: function() {
     section.removeStars();
-    if (section.moves < 10) {
+    if (section.moves < 12) {
       section.appendStars(3);
-    } else if (section.moves < 15) {
+    } else if (section.moves < 17) {
       section.appendStars(2);
-    } else if (section.moves < 20) {
-      section.appendStars(1);
     } else {
-      section.appendStars(0);
+      section.appendStars(1);
     }
   },
 
@@ -61,14 +66,12 @@ const section = {
   * @returns {number} Either 3, 2, 1 or 0 stars
   */
   getStars: function() {
-    if (section.moves < 10) {
+    if (section.moves < 12) {
       return 3;
-    } else if (section.moves < 15) {
+    } else if (section.moves < 17) {
       return 2;
-    } else if (section.moves < 20) {
-      return 1;
     } else {
-      return 0;
+      return 1;
     }
   },
 
@@ -117,6 +120,8 @@ const section = {
       section.movesElement.innerHTML = section.moves + " Moves";
     }
   },
+
+
 };
 
 /**
@@ -314,6 +319,7 @@ deck.ulElement.addEventListener('click', function(event) {
   // only unhide cards if less than two is selected
   if (section.moves == 0) {
     deck.startTime = performance.now();
+    //setInterval(function(){ section.displayTimer(); }, 1000);
     console.log(deck.startTime)
   }
 

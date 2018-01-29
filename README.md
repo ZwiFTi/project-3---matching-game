@@ -14,8 +14,7 @@ This is a game where you have to memorize the positions of certain items, and ma
 together as pairs. Each move consists of the player flipping over two cards. When all cards
 are matched, player wins.
 
-Win in less than 10 moves for the best star rating, less than 15 stars for two stars and
-less than 20 for 1 star. Be careful, above 20, and you won't get a star!
+Win in less than 12 moves for the best star rating and less than 17 stars for a two star rating. Be careful, 17 and above will place you at one star!
 
 
 ## Installation
